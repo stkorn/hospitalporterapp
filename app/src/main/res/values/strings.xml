@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Pua Hospital by PinPin</string>
+    <string name="status_label">สถานะ :</string>
+    <string name="imageview_profile_contentDesc">show profile image</string>
+    <string name="account_name_contextDesc">account name</string>
+    <string name="add_button_message">กดเมื่อคุณต้องรับ - ส่งผู้ป่วย</string>
+    <string name="time_label">เวลา</string>
+    <string name="name_patient_label">รับ - ส่ง ชื่อผู้ป่วย</string>
+    <string name="building_label">ตึก</string>
+</resources>

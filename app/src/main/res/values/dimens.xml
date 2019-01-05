@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="imageview_profile_size">100dp</dimen>
+    <dimen name="app_margin_top">16dp</dimen>
+    <dimen name="app_margin_side">16dp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_big">18sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="button_setting_size">32dp</dimen>
+    <dimen name="button_add_size">100dp</dimen>
+    <dimen name="text_size_bigger">24sp</dimen>
+    <dimen name="margin_section">16dp</dimen>
+    <dimen name="margin_section_big">24dp</dimen>
+</resources>
