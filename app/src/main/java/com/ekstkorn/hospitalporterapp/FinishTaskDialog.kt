@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 
-class AddPatientDialog : DialogFragment() {
+class FinishTaskDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog: Dialog = super.onCreateDialog(savedInstanceState)
@@ -29,13 +29,9 @@ class AddPatientDialog : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.dialog_add_patient, container, false)
-        val list = listOf("ตึก A", "ตึก ฺ B", "ตึก C")
-        val arrayAdapter = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, list)
-        val spinner: Spinner = view.findViewById(R.id.spinnerBuilding)
+        val view = inflater.inflate(R.layout.dialog_finish_task_patient, container, false)
         val buttonCancel: Button = view.findViewById(R.id.buttonCancel)
         val buttonConfirm: Button = view.findViewById(R.id.buttonConfirm)
-        spinner.adapter = arrayAdapter
 
         buttonCancel.setOnClickListener { dismiss() }
         buttonConfirm.setOnClickListener { dismiss() }
