@@ -6,17 +6,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ekstkorn.hospitalporterapp.DataEvent
 import com.ekstkorn.hospitalporterapp.repository.DataStoreRepository
+import com.ekstkorn.hospitalporterapp.room.BuildingEntity
 
 class JobViewModel(private val dataStoreRepository: DataStoreRepository) : ViewModel() {
 
     private val _viewState by lazy { MutableLiveData<DataEvent<Void>>() }
     val viewState: LiveData<DataEvent<Void>> = _viewState
 
+    lateinit var getBuildingLiveData: LiveData<DataEvent<List<BuildingEntity>>>
+
     @SuppressLint("CheckResult")
-    fun initBuilding() : LiveData<DataEvent<Void>> {
-        return dataStoreRepository.initBuilding()
+    fun getBuilding() : LiveData<DataEvent<List<BuildingEntity>>> {
+        getBuildingLiveData = dataStoreRepository.getBuilding()
+        return getBuildingLiveData
     }
 
+    fun clearData() {
+        dataStoreRepository.clearDatabase()
+    }
 
+    fun clearDispoable() {
+        dataStoreRepository.clearDisposable()
+    }
 
 }

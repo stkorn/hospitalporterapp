@@ -6,6 +6,7 @@ import com.ekstkorn.hospitalporterapp.repository.DataStoreRepository
 import com.ekstkorn.hospitalporterapp.room.AppDataBase
 import com.ekstkorn.hospitalporterapp.room.BuildingDao
 import com.ekstkorn.hospitalporterapp.view.JobViewModel
+import com.ekstkorn.hospitalporterapp.view.LoginViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.readystatesoftware.chuck.ChuckInterceptor
 import io.reactivex.schedulers.Schedulers
@@ -60,6 +61,7 @@ inline fun <reified T> createWebService(okHttpClient: OkHttpClient): T {
 
 val viewModule = module {
     viewModel { jobViewModel(get()) }
+    viewModel { loginViewModel(get()) }
     single { dataStoreRepository(get(), get()) }
     single { Room.databaseBuilder(androidApplication(), AppDataBase::class.java, "app_db")
             .build()}
@@ -73,6 +75,10 @@ fun dataStoreRepository(api: WebServiceApi, buildingDao: BuildingDao) : DataStor
 
 fun jobViewModel(dataStoreRepository: DataStoreRepository) : JobViewModel {
     return JobViewModel(dataStoreRepository)
+}
+
+fun loginViewModel(dataStoreRepository: DataStoreRepository) : LoginViewModel {
+    return LoginViewModel(dataStoreRepository)
 }
 
 val appModules = listOf(remoteModule, viewModule)

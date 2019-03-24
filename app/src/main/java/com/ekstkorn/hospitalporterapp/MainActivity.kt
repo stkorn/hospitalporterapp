@@ -45,11 +45,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        jobViewModel.clearData()
+        jobViewModel.clearDispoable()
         jobViewModel.viewState.removeObservers(this)
+        jobViewModel.getBuildingLiveData.removeObservers(this)
     }
 
     private fun initialData() {
-        jobViewModel.initBuilding().observe(this, Observer {
+        jobViewModel.getBuilding().observe(this, Observer {
             it?.viewState?.let { state ->
                 when (state) {
                     ViewState.LOADING -> { Log.i("app", "Loading building") }
