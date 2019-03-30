@@ -20,8 +20,8 @@ class LoginViewModel(private val dataStoreRepository: DataStoreRepository) : Vie
     private val _viewState by lazy { MutableLiveData<DataEvent<Void>>() }
     val viewState: LiveData<DataEvent<Void>> = _viewState
 
-    private val _loginSuccess by lazy { MutableLiveData<Event<Boolean>>() }
-    val loginSucces: LiveData<Event<Boolean>> = _loginSuccess
+    private val _loginSuccess by lazy { MutableLiveData<Event<String>>() }
+    val loginSucces: LiveData<Event<String>> = _loginSuccess
 
     fun login(user: String, pass: String) {
         dataStoreRepository.authen(user, pass)
@@ -29,13 +29,17 @@ class LoginViewModel(private val dataStoreRepository: DataStoreRepository) : Vie
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { _viewState.postValue(DataEvent(ViewState.LOADING)) }
                 .subscribeBy(
-                        onSuccess = {
-                            _loginSuccess.postValue(Event(true))
+                        onSuccess = { res ->
+                            res?.let { _loginSuccess.postValue(Event(it.userId)) }
                         },
                         onError = {
                             _viewState.postValue(DataEvent(ViewState.ERROR))
                         }
                 )
                 .addTo(compositeDisposable)
+    }
+
+    fun clearData() {
+        dataStoreRepository.clearDatabase()
     }
 }

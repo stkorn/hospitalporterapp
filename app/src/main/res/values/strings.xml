@@ -7,4 +7,6 @@
     <string name="time_label">เวลา</string>
     <string name="name_patient_label">รับ - ส่ง ชื่อผู้ป่วย</string>
     <string name="building_label">ตึก</string>
+    <string name="available_status">ว่าง</string>
+    <string name="busy_status">อยู่ระหว่างรับ - ส่งผู้ป่วย</string>
 </resources>

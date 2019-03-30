@@ -4,8 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ekstkorn.hospitalporterapp.DataEvent
+import com.ekstkorn.hospitalporterapp.JobStatus
 import com.ekstkorn.hospitalporterapp.ViewState
-import com.ekstkorn.hospitalporterapp.model.AuthenRequest
+import com.ekstkorn.hospitalporterapp.model.*
 import com.ekstkorn.hospitalporterapp.module.WebServiceApi
 import com.ekstkorn.hospitalporterapp.room.BuildingDao
 import com.ekstkorn.hospitalporterapp.room.BuildingEntity
@@ -22,9 +23,12 @@ class DataStoreRepository(private val api: WebServiceApi, private val buildingDa
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
-    private val initBuilding by lazy { MutableLiveData<DataEvent<List<BuildingEntity>>>() }
+    val initBuilding by lazy { MutableLiveData<DataEvent<List<BuildingEntity>>>() }
 
-    fun authen(user: String, pass: String) : Single<ResponseBody> {
+    var userId: String = ""
+    var jobStatus: JobStatus = JobStatus.AVAILABLE
+
+    fun authen(user: String, pass: String) : Single<AuthResponse> {
         val request = AuthenRequest(userName = user, password = pass)
         return api.authenUser(request)
     }
@@ -115,8 +119,20 @@ class DataStoreRepository(private val api: WebServiceApi, private val buildingDa
                 .addTo(compositeDisposable)
     }
 
+    fun getUserProfile(userId: String): Single<UserProfileResponse> {
+        return api.getUserProfile(userId)
+    }
+
     fun clearDisposable() {
         compositeDisposable.clear()
+    }
+
+    fun getJobStatus(): Single<JobStatusResponse> {
+        return api.getJobStatus(userId)
+    }
+
+    fun getJobList(fromData: String, toDate: String): Single<JobListResponse> {
+        return api.getJobList(userId, fromData, toDate)
     }
 
 }

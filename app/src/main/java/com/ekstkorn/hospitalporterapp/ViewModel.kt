@@ -4,7 +4,7 @@ import androidx.lifecycle.Observer
 
 enum class ViewState {LOADING, SUCCESS, ERROR}
 
-data class DataEvent<out T> constructor(val viewState: ViewState, val data: T? = null)
+data class DataEvent<out T> constructor(val viewState: ViewState, val data: T? = null, val errorMsg: String? = null)
 
 open class Event<out T>(private val content: T) {
 

@@ -168,6 +168,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listViewJob"
         android:layout_width="368dp"
         android:layout_height="111dp"
         android:layout_marginStart="@dimen/app_margin_side"

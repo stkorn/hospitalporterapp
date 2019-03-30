@@ -16,6 +16,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        loginViewModel.clearData()
+
         loginViewModel.apply {
             viewState.observe(this@LoginActivity, Observer {
                 it?.viewState?.let {
@@ -31,8 +33,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
 
-            loginSucces.observe(this@LoginActivity, EventObserver {
+            loginSucces.observe(this@LoginActivity, EventObserver { userId ->
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                intent.putExtra(USERID_EXTRA, userId)
                 startActivity(intent)
                 finish()
             })
