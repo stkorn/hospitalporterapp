@@ -16,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), OnClose {
     override fun finishJob() {
+        jobViewModel.getJobHistoryList()
         jobViewModel.getJobStatusAvailable()
     }
 
@@ -156,7 +157,7 @@ class MainActivity : AppCompatActivity(), OnClose {
                         }
 
                         if (view.status == JobStatus.AVAILABLE) {
-                            imageButtonAdd.setImageResource(R.drawable.ic_add_circle_green)
+                            imageButtonAdd.setImageResource(R.mipmap.add)
                             textViewPatientName.text = getString(R.string.text_button_create_job)
                         } else {
                             imageButtonAdd.setImageResource(R.drawable.ic_swap_vertical_circle)

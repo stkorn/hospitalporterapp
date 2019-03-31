@@ -134,7 +134,8 @@ class JobViewModel(private val dataStoreRepository: DataStoreRepository) : ViewM
                             _jobList.postValue(DataEvent(ViewState.SUCCESS, JobListView(it.map { res ->
                                 JobView(time = res.startDateTime,
                                         name = res.patientName,
-                                        building = res.jobBuildingName)
+                                        building = res.jobBuildingName,
+                                        jobStatus = res.status)
                             })))
                         },
                         onError = {

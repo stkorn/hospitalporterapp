@@ -3,6 +3,7 @@ package com.ekstkorn.hospitalporterapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ekstkorn.hospitalporterapp.view.model.JobListView
 import com.ekstkorn.hospitalporterapp.view.model.JobView
@@ -34,6 +35,17 @@ class JobAdapter(var jobList: List<JobView>) : RecyclerView.Adapter<JobAdapter.V
             textViewTime.text = strDate
             textViewPatientName.text = item.name
             textViewBuilding.text = item.building
+            textViewJobStatus.text = if (item.jobStatus == JobStatus.COMPLETE.status) {
+                "เสร็จสิ้น"
+            } else {
+                "กำลังรับ - ส่ง"
+            }
+
+            textViewJobStatus.setTextColor(ContextCompat.getColor(context, if (item.jobStatus == JobStatus.COMPLETE.status) {
+                R.color.textGreen
+            } else {
+                R.color.greyLight
+            }))
         }
 
     }

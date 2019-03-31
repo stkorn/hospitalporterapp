@@ -19,6 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:imeOptions="actionNext"
         android:gravity="center_horizontal"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_big" />
@@ -37,6 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
         android:gravity="center_horizontal"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_big" />

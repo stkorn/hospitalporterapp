@@ -3,24 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingStart="@dimen/app_margin_side"
-    android:paddingTop="16dp"
+    android:paddingTop="8dp"
     android:background="@color/greyLight"
     android:elevation="2dp"
     android:paddingEnd="@dimen/app_margin_side"
     android:layout_marginBottom="8dp"
-    android:paddingBottom="16dp">
+    android:paddingBottom="0dp">
 
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="08:10"
+        tools:text="08:10"
         android:textColor="@color/textGreyDark"
         android:textSize="@dimen/text_size_normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewJobStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Complete"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPatientName"
+        app:layout_constraintStart_toStartOf="@id/textViewPatientName"/>
 
     <TextView
         android:id="@+id/textViewPatientName"

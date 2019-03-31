@@ -51,7 +51,7 @@ fun createChuckInterceptor(context: Context) : ChuckInterceptor {
 
 inline fun <reified T> createWebService(okHttpClient: OkHttpClient): T {
     val retrofit = Retrofit.Builder()
-            .baseUrl("http://139.5.146.149:8080/")
+            .baseUrl("http://118.175.30.68:8080/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .client(okHttpClient)

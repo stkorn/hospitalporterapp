@@ -17,4 +17,4 @@ data class JobStatusView(
 
 data class JobListView(val list: List<JobView>)
 
-data class JobView(val time: String, val name: String, val building: String)
+data class JobView(val time: String, val name: String, val building: String, val jobStatus: String)
