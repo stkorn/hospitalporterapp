@@ -105,18 +105,14 @@ class MainActivity : AppCompatActivity(), OnClose {
         jobViewModel.clearDispoable()
         jobViewModel.viewState.removeObservers(this)
         jobViewModel.getBuildingLiveData.removeObservers(this)
+        jobViewModel.userProfile.removeObservers(this)
+        jobViewModel.jobStatus.removeObservers(this)
+        jobViewModel.jobList.removeObservers(this)
+        jobViewModel.refreshJob.removeObservers(this)
     }
 
     private fun initialData() {
-        jobViewModel.getBuilding().observe(this, Observer {
-            it?.viewState?.let { state ->
-                when (state) {
-                    ViewState.LOADING -> { Log.i("app", "Loading building") }
-                    ViewState.SUCCESS -> { Log.i("app", "Save building success") }
-                    ViewState.ERROR -> { Log.i("app", "Error save building") }
-                }
-            }
-        })
+        jobViewModel.getBuilding()
 
         //Get user profile
         val userId = intent.getStringExtra(USERID_EXTRA)
