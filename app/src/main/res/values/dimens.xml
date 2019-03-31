@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="imageview_profile_size">100dp</dimen>
+    <dimen name="imageview_profile_size">80dp</dimen>
     <dimen name="app_margin_top">16dp</dimen>
     <dimen name="app_margin_side">16dp</dimen>
     <dimen name="text_size_normal">16sp</dimen>

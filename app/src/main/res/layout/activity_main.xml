@@ -11,7 +11,7 @@
         android:id="@+id/topLayout"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:background="@color/greyLight"
+        android:background="@color/purple"
         android:paddingStart="@dimen/app_margin_side"
         android:paddingTop="@dimen/app_margin_top"
         android:paddingEnd="@dimen/app_margin_side"
@@ -26,7 +26,7 @@
             android:contentDescription="@string/imageview_profile_contentDesc"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_account_circle" />
+            app:srcCompat="@mipmap/man" />
 
         <TextView
             android:id="@+id/textViewName"
@@ -35,7 +35,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="นายสุขสำราญ จิตใจดี"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_big"
             app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
             app:layout_constraintTop_toTopOf="@+id/imageViewProfile" />
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PUA0001"
-            android:textColor="@color/textGrey"
+            android:textColor="@color/greyLight"
             android:textSize="@dimen/text_size_small"
             app:layout_constraintStart_toStartOf="@+id/textViewName"
             app:layout_constraintTop_toBottomOf="@+id/textViewName" />
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="โทร. 088-888-8888"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_normal"
             app:layout_constraintStart_toStartOf="@+id/textViewName"
             app:layout_constraintTop_toBottomOf="@+id/textViewID" />
@@ -68,7 +68,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="ว่าง"
-            android:textColor="@color/textGreen"
+            android:textColor="@color/appGreen"
             android:textSize="@dimen/text_size_normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -80,7 +80,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/status_label"
-            android:textColor="@color/textGreen"
+            android:textColor="@color/appGreen"
             android:textSize="@dimen/text_size_normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewStatus" />
@@ -118,7 +118,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topLayout"
-        app:srcCompat="@mipmap/add" />
+        app:srcCompat="@drawable/ic_add_circle_green" />
 
     <TextView
         android:id="@+id/textViewPatientName"
@@ -156,17 +156,17 @@
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
-        android:text="@string/building_label"
-        android:textColor="@color/textGreen"
-        android:textSize="@dimen/text_size_small"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView4"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="56dp"-->
+        <!--android:text="@string/building_label"-->
+        <!--android:textColor="@color/textGreen"-->
+        <!--android:textSize="@dimen/text_size_small"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView3"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView3" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listViewJob"

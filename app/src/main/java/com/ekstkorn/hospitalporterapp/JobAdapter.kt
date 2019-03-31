@@ -44,7 +44,7 @@ class JobAdapter(var jobList: List<JobView>) : RecyclerView.Adapter<JobAdapter.V
             textViewJobStatus.setTextColor(ContextCompat.getColor(context, if (item.jobStatus == JobStatus.COMPLETE.status) {
                 R.color.textGreen
             } else {
-                R.color.greyLight
+                R.color.orange_one
             }))
         }
 

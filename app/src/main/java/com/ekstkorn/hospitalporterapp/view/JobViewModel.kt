@@ -101,7 +101,7 @@ class JobViewModel(private val dataStoreRepository: DataStoreRepository) : ViewM
                                         },
                                         time = "${it.remainingTime} นาที",
                                         textColor = if (it.isAvailable == "Y") {
-                                            R.color.textGreen
+                                            R.color.appGreen
                                         } else {
                                             R.color.orange_one
                                         })))

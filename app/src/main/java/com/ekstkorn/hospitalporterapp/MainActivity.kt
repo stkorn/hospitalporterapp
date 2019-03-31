@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity(), OnClose {
                         }
 
                         if (view.status == JobStatus.AVAILABLE) {
-                            imageButtonAdd.setImageResource(R.mipmap.add)
+                            imageButtonAdd.setImageResource(R.drawable.ic_add_circle_green)
                             textViewPatientName.text = getString(R.string.text_button_create_job)
                         } else {
                             imageButtonAdd.setImageResource(R.drawable.ic_swap_vertical_circle)

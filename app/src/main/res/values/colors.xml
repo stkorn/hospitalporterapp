@@ -7,7 +7,9 @@
     <color name="textGrey">#777777</color>
     <color name="textGreyDark">#404040</color>
     <color name="greyBg">#dfdfdf</color>
-    <color name="textGreen">@color/appGreen</color>
+    <color name="textGreen">#297700</color>
     <color name="orange_one">#fda200</color>
     <color name="appGreen">#1db954</color>
+    <color name="purple">#49274a</color>
+    <color name="yelloTwo">#f4decb</color>
 </resources>
