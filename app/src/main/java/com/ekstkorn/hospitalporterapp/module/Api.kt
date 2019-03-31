@@ -19,12 +19,21 @@ interface WebServiceApi {
     fun getUserProfile(@Query("userid") userId: String) : Single<UserProfileResponse>
 
     @GET("job")
-    fun getJobStatus(@Query("userid") userId: String) : Single<JobStatusResponse>
+    fun getJobStatus(@Query("userid") userId: String) : Single<List<JobStatusResponse>>
 
     @GET("working-history")
     fun getJobList(@Query("userid") userId: String,
                    @Query("fromDate") fromData: String,
-                   @Query("toDate") toDate: String) : Single<JobListResponse>
+                   @Query("toDate") toDate: String) : Single<List<JobListResponse>>
+
+    @POST("job")
+    fun createJob(@Body request: CreateJobRequest) : Single<ResponseBody>
+
+    @POST("job")
+    fun finishJob(@Body request: CompleteJobRequest) : Single<ResponseBody>
+
+    @POST("logout")
+    fun logout(@Body request: LogoutRequest) : Single<ResponseBody>
 
 }
 

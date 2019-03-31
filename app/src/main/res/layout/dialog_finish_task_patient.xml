@@ -37,7 +37,8 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="คุณได้ทำการส่งผู้ป่วย ชื่อ คุณบอใบ ที่ตึก A เรียบร้อยแล้วใช่หรือไม่?"
+                android:id="@+id/textViewFinishJobMsg"
+                android:text="@string/finish_job_message"
                 android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/textGreyDark"
                 android:layout_marginTop="16dp"

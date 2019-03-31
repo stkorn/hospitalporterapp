@@ -26,9 +26,13 @@ class DataStoreRepository(private val api: WebServiceApi, private val buildingDa
     val initBuilding by lazy { MutableLiveData<DataEvent<List<BuildingEntity>>>() }
 
     var userId: String = ""
+    var username: String = ""
     var jobStatus: JobStatus = JobStatus.AVAILABLE
+    var jobId: String? = null
+    var jobList: List<JobListResponse>? = null
 
     fun authen(user: String, pass: String) : Single<AuthResponse> {
+        username = user
         val request = AuthenRequest(userName = user, password = pass)
         return api.authenUser(request)
     }
@@ -127,12 +131,33 @@ class DataStoreRepository(private val api: WebServiceApi, private val buildingDa
         compositeDisposable.clear()
     }
 
-    fun getJobStatus(): Single<JobStatusResponse> {
+    fun getJobStatus(): Single<List<JobStatusResponse>> {
         return api.getJobStatus(userId)
     }
 
-    fun getJobList(fromData: String, toDate: String): Single<JobListResponse> {
+    fun getJobList(fromData: String, toDate: String): Single<List<JobListResponse>> {
         return api.getJobList(userId, fromData, toDate)
+    }
+
+    fun createJob(buildingId: String, job: JobStatus, name: String): Single<ResponseBody> {
+        return api.createJob(CreateJobRequest(buildingId = buildingId, jobstatus = job.status,
+                patientName = name, userId = userId))
+    }
+
+    fun finishJob(): Single<ResponseBody>? {
+            return jobList?.let {
+                 api.finishJob(CompleteJobRequest(
+                        buildingId = it[0].jobBuildingId,
+                        jobId = it[0].jobId,
+                        jobstatus = JobStatus.COMPLETE.status,
+                        patientName = it[0].patientName,
+                        userId = userId
+                ))
+            }
+    }
+
+    fun logout(): Single<ResponseBody> {
+        return api.logout(LogoutRequest(username))
     }
 
 }

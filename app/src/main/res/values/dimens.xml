@@ -6,7 +6,7 @@
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_big">18sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
-    <dimen name="button_setting_size">32dp</dimen>
+    <dimen name="button_setting_size">24dp</dimen>
     <dimen name="button_add_size">100dp</dimen>
     <dimen name="text_size_bigger">24sp</dimen>
     <dimen name="margin_section">16dp</dimen>

@@ -9,4 +9,7 @@
     <string name="building_label">ตึก</string>
     <string name="available_status">ว่าง</string>
     <string name="busy_status">อยู่ระหว่างรับ - ส่งผู้ป่วย</string>
+    <string name="text_button_create_job">กดเมื่อต้องการรับ - ส่งผู้ป่วย</string>
+    <string name="text_button_complete_job">กดเมื่อรับ - ส่งผู้ป่วยเรียบร้อยแล้ว</string>
+    <string name="finish_job_message">คุณได้ทำการส่งผู้ป่วย ชื่อ คุณ%1$s ที่ตึก %2$s เรียบร้อยแล้วใช่หรือไม่?</string>
 </resources>

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ekstkorn.hospitalporterapp.view.model.JobListView
 import com.ekstkorn.hospitalporterapp.view.model.JobView
 import kotlinx.android.synthetic.main.layout_queue_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class JobAdapter(var jobList: List<JobView>) : RecyclerView.Adapter<JobAdapter.ViewHolder>() {
 
@@ -26,7 +28,10 @@ class JobAdapter(var jobList: List<JobView>) : RecyclerView.Adapter<JobAdapter.V
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: JobView) = with(itemView) {
-            textViewTime.text = item.time
+            val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).parse(item.time)
+            val dateFormat = SimpleDateFormat("dd/MM\nHH:mm", Locale.US)
+            val strDate = dateFormat.format(date)
+            textViewTime.text = strDate
             textViewPatientName.text = item.name
             textViewBuilding.text = item.building
         }

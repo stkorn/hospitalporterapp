@@ -38,9 +38,9 @@ data class JobStatusResponse(
     val userId: String
 )
 
-data class JobListResponse(val jobList: List<JobResponse>)
+//data class JobListResponse(val jobList: List<JobResponse>)
 
-data class JobResponse(
+data class JobListResponse(
     val completeDateTime: String,
     val endDateTime: String,
     val jobBuildingId: String,

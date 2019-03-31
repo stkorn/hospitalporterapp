@@ -1,7 +1,9 @@
 package com.ekstkorn.hospitalporterapp
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.DialogFragment
 import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
@@ -11,12 +13,21 @@ import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import androidx.lifecycle.Observer
 import com.ekstkorn.hospitalporterapp.view.JobViewModel
+import com.ekstkorn.hospitalporterapp.view.OnClose
+import kotlinx.android.synthetic.main.dialog_add_patient.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddPatientDialog : DialogFragment() {
 
     private val jobViewModel by viewModel<JobViewModel>()
+
+    lateinit var listener: OnClose
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = context as OnClose
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog: Dialog = super.onCreateDialog(savedInstanceState)
@@ -44,10 +55,26 @@ class AddPatientDialog : DialogFragment() {
         spinner.adapter = arrayAdapter
 
         buttonCancel.setOnClickListener { dismiss() }
-        buttonConfirm.setOnClickListener { dismiss() }
+        buttonConfirm.setOnClickListener {
+            val selectedItemPosition = spinner.selectedItemPosition
+            val buildingEntity = jobViewModel.getDataRepository().initBuilding.value?.data?.get(selectedItemPosition)
+            createJob(pataintName = editTextPatientName.text.toString(),
+                buildingId = buildingEntity!!.buildingId)
+        }
 
         return view
 
+    }
+
+    private fun createJob(buildingId: String, pataintName: String) {
+        Log.i("app", "Build ID: $buildingId, Name: $pataintName")
+        jobViewModel._createJob.observe(this, Observer {
+            if (it.data!!) {
+                dismiss()
+                listener.successCreateJob()
+            }
+        })
+        jobViewModel.createJob(buildingId = buildingId, pateintName = pataintName, jobStatus = JobStatus.WORKING)
     }
 
 }

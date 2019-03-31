@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ekstkorn.hospitalporterapp.DataEvent
-import com.ekstkorn.hospitalporterapp.JobStatus
-import com.ekstkorn.hospitalporterapp.R
-import com.ekstkorn.hospitalporterapp.ViewState
+import com.ekstkorn.hospitalporterapp.*
 import com.ekstkorn.hospitalporterapp.repository.DataStoreRepository
 import com.ekstkorn.hospitalporterapp.room.BuildingEntity
 import com.ekstkorn.hospitalporterapp.view.model.JobListView
@@ -20,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -41,6 +39,16 @@ class JobViewModel(private val dataStoreRepository: DataStoreRepository) : ViewM
 
     private val _jobList by lazy { MutableLiveData<DataEvent<JobListView>>() }
     val jobList: LiveData<DataEvent<JobListView>> = _jobList
+
+    val _createJob by lazy { MutableLiveData<DataEvent<Boolean>>() }
+    val createJob: LiveData<DataEvent<Boolean>> = _createJob
+
+    val _finishJob by lazy { MutableLiveData<DataEvent<Boolean>>() }
+    val finishJob: LiveData<DataEvent<Boolean>> = _finishJob
+
+    val refreshJob by lazy { MutableLiveData<Boolean>() }
+
+    val logout by lazy { MutableLiveData<Event<Boolean>>() }
 
     fun getDataRepository() = dataStoreRepository
 
@@ -78,24 +86,26 @@ class JobViewModel(private val dataStoreRepository: DataStoreRepository) : ViewM
     fun getJobStatusAvailable(): LiveData<DataEvent<JobStatusView>> {
         dataStoreRepository.getJobStatus()
                 .doOnSubscribe { _jobStatus.postValue(DataEvent(ViewState.LOADING)) }
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribeBy(
-                        onSuccess = {
-                            _jobStatus.postValue(DataEvent(ViewState.SUCCESS, JobStatusView(
-                                    status = if (it.isAvailable == "Y") {
-                                        dataStoreRepository.jobStatus = JobStatus.AVAILABLE
-                                        JobStatus.AVAILABLE
-                                    } else {
-                                        dataStoreRepository.jobStatus = JobStatus.BUSY
-                                        JobStatus.BUSY
-                                    },
-                                    time = it.remainingTime,
-                                    textColor = if (it.isAvailable == "Y") {
-                                        R.color.textGreen
-                                    } else {
-                                        R.color.orange_one
-                                    })))
+                        onSuccess = { res ->
+                            res[0].let {
+                                _jobStatus.postValue(DataEvent(ViewState.SUCCESS, JobStatusView(
+                                        status = if (it.isAvailable == "Y") {
+                                            dataStoreRepository.jobStatus = JobStatus.AVAILABLE
+                                            JobStatus.AVAILABLE
+                                        } else {
+                                            dataStoreRepository.jobStatus = JobStatus.BUSY
+                                            JobStatus.BUSY
+                                        },
+                                        time = "${it.remainingTime} นาที",
+                                        textColor = if (it.isAvailable == "Y") {
+                                            R.color.textGreen
+                                        } else {
+                                            R.color.orange_one
+                                        })))
+                            }
                         },
                         onError = {
                             _jobStatus.postValue(DataEvent(ViewState.ERROR, null, ""))
@@ -116,11 +126,12 @@ class JobViewModel(private val dataStoreRepository: DataStoreRepository) : ViewM
         Log.i("day", "to date: $toDate")
         dataStoreRepository.getJobList(fromData = startDate, toDate = toDate)
                 .doOnSubscribe { _jobList.postValue(DataEvent(ViewState.LOADING)) }
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribeBy(
                         onSuccess = {
-                            _jobList.postValue(DataEvent(ViewState.SUCCESS, JobListView(it.jobList.map { res ->
+                            dataStoreRepository.jobList = it
+                            _jobList.postValue(DataEvent(ViewState.SUCCESS, JobListView(it.map { res ->
                                 JobView(time = res.startDateTime,
                                         name = res.patientName,
                                         building = res.jobBuildingName)
@@ -133,6 +144,53 @@ class JobViewModel(private val dataStoreRepository: DataStoreRepository) : ViewM
                 .addTo(disposable)
 
         return jobList
+    }
+
+    fun createJob(buildingId: String, jobStatus: JobStatus, pateintName: String) {
+        dataStoreRepository.createJob(buildingId = buildingId, job = jobStatus, name = pateintName)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeBy(
+                        onSuccess = {
+                            _createJob.postValue(DataEvent(ViewState.SUCCESS, true))
+                        },
+                        onError = {
+                            _createJob.postValue(DataEvent(ViewState.ERROR, false))
+                        }
+                )
+                .addTo(disposable)
+    }
+
+    fun finishJob(): LiveData<DataEvent<Boolean>> {
+        dataStoreRepository.finishJob()!!
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeBy(
+                        onSuccess = {
+                            _finishJob.postValue(DataEvent(ViewState.SUCCESS, true))
+                        },
+                        onError = {
+                            _finishJob.postValue(DataEvent(ViewState.ERROR, false))
+                        }
+                )
+                .addTo(disposable)
+
+        return finishJob
+    }
+
+    fun logout() {
+        dataStoreRepository.logout()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeBy(
+                        onSuccess = {
+                            logout.postValue(Event(true))
+                        },
+                        onError = {
+                            logout.postValue(Event(false))
+                        }
+                )
+                .addTo(disposable)
     }
 
     fun clearData() {
